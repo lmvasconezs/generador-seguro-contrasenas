@@ -8,6 +8,9 @@ def generar_contrasena(longitud=12):
     caracteres = string.ascii_letters + string.digits + string.punctuation
     return ''.join(secrets.choice(caracteres) for _ in range(longitud))
 
+if __name__ == "__main__":
+    contraseña = generar_contrasena()
+    print("Contraseña generada:", contraseña)
 
 ## Interfaz sencilla para ingreso de parametro de longitud
 
