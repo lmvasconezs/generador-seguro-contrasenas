@@ -15,7 +15,7 @@ Funcionalidades principales:
 2. Evaluación de fuerza y verificación
     -Cálculo de puntaje (0–100) según longitud, diversidad de caracteres y detección de secuencias o repeticiones.
     -Comprobación contra lista negra local (blacklist.txt) y API de HIBP (k-anonymity).
-    Gestión de almacenamiento cifrado
+    -Gestión de almacenamiento cifrado
 3. Generación y protección de clave simétrica (AES) en key.bin.
     -Guarda y recupera contraseñas cifradas con alias único.
     -Prevención de reutilización exacta o similar mediante comparación y registro de eventos.
@@ -29,14 +29,11 @@ Funcionalidades principales:
 
 Arquitectura
     -Se decidio adoptar una arquitectura modular desacoplada, ya que esto facilita pruebas, mantenibilidad y seguridad:
-    -UI ↔ Controlador ↔ Validador ↔ Generador ↔ Storage ↔ Audit
+        -UI ↔ Controlador ↔ Validador ↔ Generador ↔ Storage ↔ Audit
     -Cada módulo define contratos claros de parámetros, salidas y manejo de errores. Se emplean principios de software seguro: validación estricta de entradas, cifrado de datos sensibles, uso de fuentes criptográficas y tolerancia a fallos externos
 
-
-
-
 Implicaciones y limitaciones:
--Implicaciones críticas:
+-Implicaciones:
     -La herramienta promueve hábitos de seguridad y educa al usuario, equilibrando usabilidad con privacidad mediante limpieza de portapapeles y visualización temporal. También contribuye a la resiliencia digital individual y organizacional.
 -Limitaciones:
     -Dependencia de conectividad y disponibilidad de la API HIBP.
