@@ -25,3 +25,9 @@
 {"timestamp": "2025-10-15T21:44:14.335175Z", "evento": "exit", "params": {}}
 {"timestamp": "2025-10-15T21:46:48.110816Z", "evento": "exit", "params": {}}
 {"timestamp": "2025-10-15T21:46:58.657473Z", "evento": "exit", "params": {}}
+{"timestamp": "2025-10-15T21:47:51.671801Z", "evento": "generated", "params": {"len": 45, "types": {"may": true, "min": false, "dig": false, "sim": false}}}
+{"timestamp": "2025-10-15T21:48:01.735527Z", "evento": "screen_cleared_after_show", "params": {}}
+{"timestamp": "2025-10-15T21:48:01.736454Z", "evento": "evaluacion", "params": {"score": 35, "issues": {"repeticiones_largas": false, "secuencias": false}}}
+{"timestamp": "2025-10-15T21:48:02.079685Z", "evento": "hibp_checked", "params": {"result": "not_found"}}
+{"timestamp": "2025-10-15T21:48:04.066294Z", "evento": "saved_encrypted", "params": {"alias": "s"}}
+{"timestamp": "2025-10-15T21:48:10.023622Z", "evento": "exit", "params": {}}
