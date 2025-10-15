@@ -1,0 +1,14 @@
+{"timestamp": "2025-10-15T21:34:09.246664Z", "evento": "key_generated", "params": {"action": "generate_key"}}
+{"timestamp": "2025-10-15T21:34:28.626137Z", "evento": "generated", "params": {"len": 12, "types": {"may": true, "min": true, "dig": true, "sim": true}}}
+{"timestamp": "2025-10-15T21:34:38.680631Z", "evento": "screen_cleared_after_show", "params": {}}
+{"timestamp": "2025-10-15T21:34:38.681306Z", "evento": "evaluacion", "params": {"score": 90, "issues": {"repeticiones_largas": false, "secuencias": true}}}
+{"timestamp": "2025-10-15T21:34:39.148803Z", "evento": "hibp_checked", "params": {"result": "not_found"}}
+{"timestamp": "2025-10-15T21:34:46.421712Z", "evento": "saved_encrypted", "params": {"alias": "LM"}}
+{"timestamp": "2025-10-15T21:35:43.642527Z", "evento": "exit", "params": {}}
+{"timestamp": "2025-10-15T21:37:19.021638Z", "evento": "variants_generated", "params": {"count": 5}}
+{"timestamp": "2025-10-15T21:38:12.864182Z", "evento": "generated", "params": {"len": 21, "types": {"may": true, "min": false, "dig": true, "sim": true}}}
+{"timestamp": "2025-10-15T21:38:22.922732Z", "evento": "screen_cleared_after_show", "params": {}}
+{"timestamp": "2025-10-15T21:38:22.923183Z", "evento": "evaluacion", "params": {"score": 85, "issues": {"repeticiones_largas": false, "secuencias": false}}}
+{"timestamp": "2025-10-15T21:38:23.433887Z", "evento": "hibp_checked", "params": {"result": "not_found"}}
+{"timestamp": "2025-10-15T21:38:28.653089Z", "evento": "saved_encrypted", "params": {"alias": "LM2"}}
+{"timestamp": "2025-10-15T21:38:52.002736Z", "evento": "exit", "params": {}}
