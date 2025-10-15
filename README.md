@@ -4,13 +4,14 @@ Fecha: 15 de octubre de 2025
 Proyecto: El impacto de las nuevas tecnologías en la sociedad: visualización del futuro: Implementación de un Generador Seguro de Contraseñas
 
 Objetivo general: 
-    -Diseñar, implementar y documentar un Generador Seguro de Contraseñas usando Python, que permita a usuarios no especializados crear claves fuertes, personalizables y compatibles con políticas corporativas, integrando normas y buenas prácticas de ciberseguridad (NIST SP 800-63B, ISO, OWASP).
+    -Diseñar, implementar y documentar un Generador Seguro de Contraseñas usando Python, que permita a usuarios no especializados crear claves fuertes, aleatorias, personalizables y compatibles con políticas corporativas, integrando normas y buenas prácticas de ciberseguridad (NIST SP 800-63B, ISO, OWASP).
     -Este proyecto aborda la problemática de contraseñas débiles o reutilizadas, una de las principales causas de brechas de seguridad, y reflexiona sobre sus implicaciones sociales, éticas y de usabilidad.
 
 Funcionalidades principales:
  1. Generación de contraseñas aleatorias
     - Parámetros configurables: longitud (mín. 8, recomendada 12), inclusión de mayúsculas, minúsculas, dígitos y símbolos.
     -Garantizar la mezcla adecuada 
+    -Generacion de variantes con mismo conjunto de parametros
     -Fuente criptográfica segura mediante el módulo secrets de Python.
 2. Evaluación de fuerza y verificación
     -Cálculo de puntaje (0–100) según longitud, diversidad de caracteres y detección de secuencias o repeticiones.
