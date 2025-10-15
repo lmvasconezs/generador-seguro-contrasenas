@@ -12,3 +12,8 @@
 {"timestamp": "2025-10-15T21:38:23.433887Z", "evento": "hibp_checked", "params": {"result": "not_found"}}
 {"timestamp": "2025-10-15T21:38:28.653089Z", "evento": "saved_encrypted", "params": {"alias": "LM2"}}
 {"timestamp": "2025-10-15T21:38:52.002736Z", "evento": "exit", "params": {}}
+{"timestamp": "2025-10-15T21:41:54.583381Z", "evento": "generated", "params": {"len": 12, "types": {"may": true, "min": true, "dig": true, "sim": true}}}
+{"timestamp": "2025-10-15T21:42:04.660204Z", "evento": "screen_cleared_after_show", "params": {}}
+{"timestamp": "2025-10-15T21:42:04.661646Z", "evento": "evaluacion", "params": {"score": 100, "issues": {"repeticiones_largas": false, "secuencias": false}}}
+{"timestamp": "2025-10-15T21:42:05.014238Z", "evento": "hibp_checked", "params": {"result": "not_found"}}
+{"timestamp": "2025-10-15T21:42:17.163373Z", "evento": "exit", "params": {}}
