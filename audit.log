@@ -23,3 +23,5 @@
 {"timestamp": "2025-10-15T21:43:57.215640Z", "evento": "hibp_checked", "params": {"result": "not_found"}}
 {"timestamp": "2025-10-15T21:44:12.330196Z", "evento": "saved_encrypted", "params": {"alias": "LM3"}}
 {"timestamp": "2025-10-15T21:44:14.335175Z", "evento": "exit", "params": {}}
+{"timestamp": "2025-10-15T21:46:48.110816Z", "evento": "exit", "params": {}}
+{"timestamp": "2025-10-15T21:46:58.657473Z", "evento": "exit", "params": {}}
