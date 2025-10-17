@@ -1,54 +1,84 @@
 Autor: Luis Miguel Vasconez
 Fecha: 15 de octubre de 2025
-Version de Python: 3.13.5
+Requisitos: Python 3.8 o superior.
 
 Proyecto: El impacto de las nuevas tecnologías en la sociedad: visualización del futuro: Implementación de un Generador Seguro de Contraseñas
 
-=== Ayuda del Generador de Contraseñas ===
-1) Puede generar una contraseña segura especificando longitud y tipos de caracteres.
-2) Puede guardar sus contraseñas en una bóveda cifrada protegida por clave.
-3) El sistema alerta si la contraseña es débil, repetida o figura en listas negras.
-4) Revise periódicamente las renovaciones y elimine contraseñas no usadas.
-=== Generador seguro de contraseñas ===
+Objetivo: 
+    -Diseñar e implementar un Generador Seguro de Contraseñas que permita a usuarios crear claves aleatorias,seguras, personalizables y compatibles con políticas corporativas, que puedan ser usadas para proteger cuentas, aplicaciones o información personal, demostrando comprensión técnica para mejorar la seguridad informática de los usuarios generando claves difíciles de adivinar o vulnerar.
+    -Este proyecto aborda la problemática de contraseñas débiles o reutilizadas, una de las principales causas de brechas de seguridad.
 
-Objetivo general: 
-    -Diseñar, implementar y documentar un Generador Seguro de Contraseñas usando Python, que permita a usuarios no especializados crear claves fuertes, aleatorias, personalizables y compatibles con políticas corporativas, integrando normas y buenas prácticas de ciberseguridad (NIST SP 800-63B, ISO, OWASP).
-    -Este proyecto aborda la problemática de contraseñas débiles o reutilizadas, una de las principales causas de brechas de seguridad, y reflexiona sobre sus implicaciones sociales, éticas y de usabilidad.
+Principales características
+    -Generación de contraseñas criptográficamente seguras con selección de longitud y tipos de caracteres.
+    -Evaluación de fortaleza e informes de recomendaciones (débil/media/fuerte).
+    -Prevención de reutilización y detección de similitud con contraseñas previas.
+    -Comprobación local contra lista negra y opcional contra la API “Have I Been Pwned”.
+    -Almacenamiento cifrado en bóveda con expiración automática y renovaciones.
+    -Registro de auditoría de todos los eventos relevantes.
+    -Interfaz de línea de comandos clara con menú interactivo y ayuda integrada.
 
-Funcionalidades principales:
- 1. Generación de contraseñas aleatorias
-    - Parámetros configurables: longitud (mín. 8, recomendada 12), inclusión de mayúsculas, minúsculas, dígitos y símbolos.
-    -Garantizar la mezcla adecuada 
-    -Generacion de variantes con mismo conjunto de parametros
-    -Fuente criptográfica segura mediante el módulo secrets de Python.
-2. Evaluación de fuerza y verificación
-    -Cálculo de puntaje (0–100) según longitud, diversidad de caracteres y detección de secuencias o repeticiones.
-    -Comprobación contra lista negra local (blacklist.txt) y API de HIBP (k-anonymity).
-    -Gestión de almacenamiento cifrado
-3. Generación y protección de clave simétrica (AES) en key.bin.
-    -Guarda y recupera contraseñas cifradas con alias único.
-    -Prevención de reutilización exacta o similar mediante comparación y registro de eventos.
-4. Interacción con el usuario
-    -Menú de opciones: generación simple, variantes, visualización de contraseñas guardadas, eliminación de alias, gestión de renovaciones, ayuda y salida.-Visualización temporal de la contraseña (10 s) con opción de copiar y limpieza de portapapeles.
-5. Auditoría y trazabilidad
-    -Registro de eventos en cada acción relevante: generación, copia, limpieza de pantalla, guardado, eliminación, renovaciones, errores y comprobaciones de seguridad.
-6. Procesamiento de renovaciones
-    -Detección de contraseñas próximas a vencer (≤7 días) o vencidas.
-    -Listado y opción de regeneración automática para entradas expiradas.
+Contenido del repositorio
+    -main_generador_final.py — Controlador principal y punto de entrada.
 
-Arquitectura
-    -Se decidio adoptar una arquitectura modular desacoplada, ya que esto facilita pruebas, mantenibilidad y seguridad:
-        -UI ↔ Controlador ↔ Validador ↔ Generador ↔ Storage ↔ Audit
-    -Cada módulo define contratos claros de parámetros, salidas y manejo de errores. Se emplean principios de software seguro: validación estricta de entradas, cifrado de datos sensibles, uso de fuentes criptográficas y tolerancia a fallos externos
+Módulos:
+    -generator.py — Generación de contraseñas.
+    -validator.py — Validación de parámetros, evaluación de fuerza, similitud.
+    -storage.py — Cifrado con Fernet, lectura/escritura de la bóveda (vault.json), gestión de alias.
+    -audit.py — Registro de eventos en audit.log.
+    -ui.py — Interacción con el usuario.
+
+Archivos de datos:
+    -key.bin — Clave simétrica para cifrado/descifrado.
+    -vault.json — Almacén cifrado de contraseñas.
+    -blacklist.txt — Lista negra local de contraseñas (una por línea).
+    -audit.log — Bitácora de eventos.
+
+Dependencias (instalar vía pip):
+    -cryptography
+    -requests (opcional para HIBP)
+    -pyperclip (opcional para copia al portapapeles)
+
+Uso básico:
+-Ejecutar el menú principal:
+    main_generador_final.py
+
+Opciones disponibles:
+1. Generar contraseña
+2. Generar varias opciones
+3. Ver contraseñas almacenadas
+4. Eliminar alias de bóveda
+5. Procesar renovaciones (ver expiraciones)
+6. Ayuda
+7. Salir
+
+1) Generar contraseña
+    -Ingrese longitud (8–128).
+    -Confirme longitud recomendada (≥12).
+    -Seleccione tipos de caracteres (mayúsculas, minúsculas, dígitos, símbolos).
+    -Se mostrará la contraseña temporalmente y se evaluará su fuerza.
+    -Opcional: guardar en bóveda cifrada y copiar al portapapeles.
+2) Generar varias opciones
+    -Igual que la opción 1, pero genera varias variantes y muestra sus puntuaciones.
+3) Ver contraseñas almacenadas
+    -Muestra alias, fecha de creación y vencimiento de cada entrada descifrada.
+4) Eliminar alias
+    -Solicita el alias a eliminar de la bóveda.
+5) Procesar renovaciones
+    -Lista contraseñas próximas a vencer (≤7 días) y vencidas.
+    -Opción de renovar vencidas automáticamente con nuevas contraseñas.
+6) Ayuda
+    -Despliega información de uso y funcionalidades principales.
 
 Implicaciones y limitaciones:
 -Implicaciones:
     -La herramienta promueve hábitos de seguridad y educa al usuario, equilibrando usabilidad con privacidad mediante limpieza de portapapeles y visualización temporal. También contribuye a la resiliencia digital individual y organizacional.
+
 -Limitaciones:
     -Dependencia de conectividad y disponibilidad de la API HIBP.
     -Gestión local de la clave simétrica (key.bin) sin infraestructura de vault empresarial.
     -Ausencia de interfaz gráfica y sincronización remota.
--Recomendaciones futuras:
+
+-Mejoras futuras:
     -Integrar autenticación multifactor y vaults corporativos (HashiCorp Vault, Azure Key Vault).
     -Desarrollar GUI multiplataforma con accesibilidad.
     -Incorporar telemetría anónima y análisis estadístico en producción.
