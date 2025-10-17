@@ -1,7 +1,15 @@
-Luis Miguel Vasconez
+Autor: Luis Miguel Vasconez
 Fecha: 15 de octubre de 2025
+Version de Python: 3.13.5
 
 Proyecto: El impacto de las nuevas tecnologías en la sociedad: visualización del futuro: Implementación de un Generador Seguro de Contraseñas
+
+=== Ayuda del Generador de Contraseñas ===
+1) Puede generar una contraseña segura especificando longitud y tipos de caracteres.
+2) Puede guardar sus contraseñas en una bóveda cifrada protegida por clave.
+3) El sistema alerta si la contraseña es débil, repetida o figura en listas negras.
+4) Revise periódicamente las renovaciones y elimine contraseñas no usadas.
+=== Generador seguro de contraseñas ===
 
 Objetivo general: 
     -Diseñar, implementar y documentar un Generador Seguro de Contraseñas usando Python, que permita a usuarios no especializados crear claves fuertes, aleatorias, personalizables y compatibles con políticas corporativas, integrando normas y buenas prácticas de ciberseguridad (NIST SP 800-63B, ISO, OWASP).
@@ -45,3 +53,4 @@ Implicaciones y limitaciones:
     -Desarrollar GUI multiplataforma con accesibilidad.
     -Incorporar telemetría anónima y análisis estadístico en producción.
     -Extender la herramienta a gestores de contraseñas comerciales y entornos colaborativos.
+
