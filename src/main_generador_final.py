@@ -258,7 +258,7 @@ def main_menu():
 
     while True:
         limpiar_pantalla()
-        print('=== Generador seguro de contraseñas (versión revisada) ===\n')
+        print('=== Generador seguro de contraseñas ===\n')
         print('Opciones:')
         print('1) Generar contraseña')
         print('2) Generar varias opciones (variantes)')
