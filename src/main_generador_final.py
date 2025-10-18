@@ -18,7 +18,7 @@ import time
 from typing import Optional
 
 BLACKLIST_FILE = "blacklist.txt"
-# Parámetros recomendados por política (documento de revisión sugiere 12 para casos críticos)
+# Parámetros recomendados por política (12 para casos críticos)
 MIN_ALLOWED_LENGTH = 8
 MIN_RECOMMENDED_LENGTH = 12
 
