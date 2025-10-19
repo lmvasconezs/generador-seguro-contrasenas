@@ -1,8 +1,8 @@
 """
-Módulo ui: interacción básica con el usuario
+Módulo ui: interacción básica con el usuario por medio de la consola
 """
 
-def pedir_longitud(min_len: int, max_len: int) -> int:
+def pedir_longitud(min_len: int, max_len: int) -> int: #Bucle hasta número válido.
     while True:
         try:
             val = int(input(f"Ingrese longitud ({min_len}-{max_len}): ").strip())
@@ -13,7 +13,7 @@ def pedir_longitud(min_len: int, max_len: int) -> int:
         except ValueError:
             print("Debe ingresar un número válido.")
 
-def pedir_bool(pregunta: str) -> bool:
+def pedir_bool(pregunta: str) -> bool: #Reconoce s/si/y/yes y devuelve True, o n/no devolviendo False.
     while True:
         val = input(f"{pregunta} (s/n): ").strip().lower()
         if val in ("s", "si", "y", "yes"):
@@ -22,7 +22,7 @@ def pedir_bool(pregunta: str) -> bool:
             return False
         print("Responda con 's' o 'n'.")
 
-def mostrar_ayuda():
+def mostrar_ayuda(): #Imprime ayuda
     print("""
 === Ayuda del Generador de Contraseñas ===
 1) Puede generar una contraseña segura especificando longitud y tipos de caracteres.

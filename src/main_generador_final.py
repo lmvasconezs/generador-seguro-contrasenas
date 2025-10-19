@@ -1,8 +1,10 @@
 """
 Controlador principal: junta módulos, aplica contratos (validator -> generator -> storage -> audit)
-Versión revisada: mejoras según el documento de revisión (limpieza de pantalla, manejo de portapapeles, prevención de reutilización, advertencia longitud mínima recomendada, mejoras en guardado y alias, mejores trazas de eventos y placeholders para controles de acceso).
+Este modulo es responsable de orquestar interacción entre módulos: recibir opciones del usuario, validar parámetros, generar contraseñas, mostrar temporalmente, decidir guardado, 
+chequear blacklist/HIBP, registrar eventos, gestionar renovaciones y CRUD simple sobre bóveda.
 """
 
+#Dependencias:
 from generator import generar_contrasena, generar_variantes, MAX_LONGITUD
 from validator import validar_parametros, evaluar_fuerza, es_demasiado_similar
 from ui import pedir_longitud, pedir_bool, mostrar_ayuda
@@ -24,7 +26,7 @@ MIN_RECOMMENDED_LENGTH = 12
 
 
 def limpiar_pantalla():
-    """Limpia la pantalla (intento portable)."""
+    """Limpia la pantalla."""
     try:
         if os.name == 'nt':
             os.system('cls')
@@ -35,7 +37,7 @@ def limpiar_pantalla():
 
 
 def limpiar_portapapeles():
-    """Intenta limpiar el portapapeles si pyperclip está disponible."""
+    """Intenta limpiar el portapapeles si pyperclip está disponible. Registra auditoria"""
     try:
         import pyperclip
         pyperclip.copy('')
@@ -50,12 +52,12 @@ def mostrar_contrasena_temporal(password: str, segundos: int = 10,
                                copiar_clipboard: bool = False,
                                limpiar_clipboard_despues: bool = True):
     """
-    Muestra "password" en pantalla durante "segundos" y luego limpia la pantalla.
+    Muestra "password" en la pantalla durante x cantidad de "segundos" y luego limpia la pantalla.
     Parámetros:
     -password (str): Texto de la contraseña a mostrar.
     -segundos (int): Tiempo de visualización en segundos.
-    - copiar_clipboard (bool): intenta copiar al portapapeles antes de mostrar.
-    - limpiar_clipboard_despues (bool): si se copió, lo limpia al finalizar.
+    -copiar_clipboard (bool): intenta copiar al portapapeles antes de mostrar.
+    -limpiar_clipboard_despues (bool): si se copió, lo limpia al finalizar.
     """
     try:
         if copiar_clipboard:
@@ -96,7 +98,7 @@ def mostrar_contrasena_temporal(password: str, segundos: int = 10,
 
 
 def chequear_blacklist_local(password: str, blacklist_file: str = BLACKLIST_FILE) -> bool:
-    """Devuelve True si password aparece en blacklist local (archivo con una password por linea)."""
+    """Devuelve True si password aparece en blacklist local (archivo con una password por linea). Si no existe, devuelve false"""
     if not os.path.exists(blacklist_file):
         return False
     with open(blacklist_file, 'r', encoding='utf-8', errors='ignore') as f:
@@ -132,8 +134,7 @@ def chequear_hibp(password: str) -> Optional[bool]:
     except Exception:
         return None
 
-
-def confirmar_longitud_recomendada(longitud: int) -> bool:
+def confirmar_longitud_recomendada(longitud: int) -> bool: #Si longitud < recomendada, pide confirmación.
     if longitud >= MIN_RECOMMENDED_LENGTH:
         return True
     print(f"Nota: la longitud solicitada ({longitud}) es menor a la longitud recomendada ({MIN_RECOMMENDED_LENGTH}).")
@@ -171,7 +172,7 @@ def puede_guardar_password(password: str) -> bool:
     return True
 
 
-def pedir_alias_unico() -> str:
+def pedir_alias_unico() -> str: #Itera hasta alias no vacío y no existente, o preguntar para sobrescribir
     while True:
         alias = input('Ingrese un alias para esta contraseña (ej: cuenta_mail): ').strip()
         if not alias:
@@ -253,10 +254,10 @@ def procesar_renovaciones():
 def main_menu():
     if not os.path.exists(KEY_FILE):
         print('No se encontró clave de cifrado (key.bin). Se generará una (protégela).')
-        generar_key()
+        generar_key() #Genera claves si key.bin no existe
         registrar_evento('key_generated', params={'action': 'generate_key'})
 
-    while True:
+    while True: #Muestra opciones 1–7 y llama a funciones adecuadas.
         limpiar_pantalla()
         print('=== Generador seguro de contraseñas ===\n')
         print('Opciones:')
@@ -269,7 +270,7 @@ def main_menu():
         print('7) Salir')
         opt = input('Elija opción (1-7): ').strip()
 
-        if opt == '1':
+        if opt == '1': #Generar contraseña
             try:
                 longitud = pedir_longitud(MIN_ALLOWED_LENGTH, MAX_LONGITUD)
                 if not confirmar_longitud_recomendada(longitud):
@@ -337,7 +338,7 @@ def main_menu():
                 print('\nOperación cancelada.')
                 continue
 
-        elif opt == '2':
+        elif opt == '2': #Generar variantes
             try:
                 longitud = pedir_longitud(MIN_ALLOWED_LENGTH, MAX_LONGITUD)
                 if not confirmar_longitud_recomendada(longitud):
@@ -356,7 +357,7 @@ def main_menu():
                 print('Error:', e)
                 registrar_evento('error_variants', params={'error': str(e)})
 
-        elif opt == '3':
+        elif opt == '3': #Ver contraseñas cifradas almacenadas
             try:
                 items = leer_todas()
                 if not items:
@@ -370,7 +371,7 @@ def main_menu():
                 print('Error leyendo store:', e)
                 registrar_evento('error_read_store', params={'error': str(e)})
 
-        elif opt == '4':
+        elif opt == '4': #Eliminar alias
             alias = input('Alias a eliminar: ').strip()
             ok = eliminar_alias(alias)
             if ok:
@@ -380,13 +381,13 @@ def main_menu():
                 print('Alias no encontrado.')
                 registrar_evento('delete_alias_missing', params={'alias': alias})
 
-        elif opt == '5':
+        elif opt == '5': #Procesar renovaciones
             procesar_renovaciones()
 
-        elif opt == '6':
+        elif opt == '6': #Mostrar ayuda
             mostrar_ayuda()
 
-        elif opt == '7':
+        elif opt == '7': #Salir
             print('Saliendo. Hasta luego.')
             registrar_evento('exit')
             sys.exit(0)

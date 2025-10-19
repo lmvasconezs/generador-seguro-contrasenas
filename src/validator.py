@@ -1,7 +1,7 @@
 """
-Módulo validator: validación de parámetros y evaluación de fortaleza de contraseñas
+Módulo validator: validación de parámetros y evaluación de fortaleza de contraseñas y similaridad entre contraseñas.
 """
-
+#Dependencias
 from difflib import SequenceMatcher
 
 def validar_parametros(longitud: int, uso_may: bool, uso_min: bool, uso_dig: bool, uso_sim: bool):
@@ -39,7 +39,7 @@ def evaluar_fuerza(password: str) -> dict:
     if password.isalpha():
         score -= 20
 
-    # Detectar repeticiones largas
+    # Detectar repeticiones largas (3 iguales seguidas)
     for i in range(len(password) - 2):
         if password[i] == password[i+1] == password[i+2]:
             issues["repeticiones_largas"] = True
@@ -54,7 +54,7 @@ def evaluar_fuerza(password: str) -> dict:
             score -= 10
             break
 
-    # Normalizar
+    # Normalizar score a 0-100 y devuelve una recomendacion (Débil/Media/Fuerte) segun el score obtenido
     score = max(0, min(score, 100))
 
     if score < 40:

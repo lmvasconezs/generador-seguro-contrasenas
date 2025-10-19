@@ -2,6 +2,7 @@
 Módulo storage: almacenamiento cifrado de contraseñas
 """
 
+#Dependencias
 import json
 import os
 from datetime import datetime, timedelta
@@ -11,12 +12,13 @@ KEY_FILE = "key.bin"
 VAULT_FILE = "vault.json"
 
 def generar_key():
-    """Genera un archivo de clave simétrica para cifrar/descifrar contraseñas."""
+    """Genera un archivo de clave simétrica para cifrar/descifrar contraseñas y escribe key.bin en binario."""
     key = Fernet.generate_key()
     with open(KEY_FILE, "wb") as f:
         f.write(key)
 
 def _get_cipher():
+    #Lee key.bin y devuelve Fernet(key). Lanza FileNotFoundError si no existe.
     if not os.path.exists(KEY_FILE):
         raise FileNotFoundError("No se encontró el archivo de clave (key.bin).")
     with open(KEY_FILE, "rb") as f:
@@ -24,6 +26,10 @@ def _get_cipher():
     return Fernet(key)
 
 def guardar_contrasena_cifrada(password: str, alias: str, meta: dict = None):
+    """
+    Crea entrada con created_at y expires_at,
+    Cifra password con Fernet.encrypt, reemplaza alias si ya existía, escribe vault.json
+    """
     cipher = _get_cipher()
     data = _leer_vault()
 
@@ -44,6 +50,7 @@ def guardar_contrasena_cifrada(password: str, alias: str, meta: dict = None):
     _escribir_vault(data)
 
 def leer_todas():
+    #Descifra cada "password" con cipher.decrypt y devuelve lista con password_plain.
     cipher = _get_cipher()
     data = _leer_vault()
     salida = []
